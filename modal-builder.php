@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name:       Modal Builder
+ * Plugin Name:       Easy Pop - Perfect Popups for Wordpress
  * Description:       Create beautiful modals and popups using the WordPress block editor with powerful targeting and display options.
  * Version:           0.1.0
  * Requires at least: 6.1
  * Requires PHP:      7.4
- * Author:            WordPress Telex
+ * Author:            Hanscom Park Studio
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       modal-builder
