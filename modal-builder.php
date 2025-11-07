@@ -21,6 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register the modal custom post type.
  */
 function modal_builder_register_post_type() {
+	
+	$custom_icon = 'data:image/svg+xml;base64,' . base64_encode('
+		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+			<path fill="black" d="M 81.22 47.96 c 32.71 -3.78 42.63 40.06 13.13 53.42 c -10.43 4.72 -19.84 4.3 -30.03 -0.7 c -0.64 22.6 -29.62 19.5 -31.83 0 C 2.48 107.8 -12.83 68.36 13.51 52.45 C -7.94 21.48 27.64 -9.49 59.33 2.73 c 17.11 6.6 28.94 27.39 21.89 45.23 Z"/>
+		</svg>
+	');
+	
 	$labels = array(
 		'name'                  => _x( 'Popups', 'Post type general name', 'modal-builder' ),
 		'singular_name'         => _x( 'Popup', 'Post type singular name', 'modal-builder' ),
@@ -45,7 +52,7 @@ function modal_builder_register_post_type() {
 		'publicly_queryable' => false,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
-		'menu_icon'          => 'dashicons-welcome-view-site',
+		'menu_icon'          => $custom_icon,
 		'query_var'          => false,
 		'rewrite'            => false,
 		'capability_type'    => 'post',
