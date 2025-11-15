@@ -2,7 +2,7 @@
  * Frontend modal styles with position and animation support
  */
 
-.modal-builder-overlay {
+.easy-pop-overlay {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -51,6 +51,21 @@
 		justify-content: flex-end;
 	}
 
+	// Full-width size variant positions
+	&[data-size="full-width"] {
+		padding: 0 !important;
+
+		&[data-position="top"] {
+			align-items: flex-start;
+			justify-content: stretch;
+		}
+
+		&[data-position="bottom"] {
+			align-items: flex-end;
+			justify-content: stretch;
+		}
+	}
+
 	&.is-visible {
 		opacity: 1;
 	}
@@ -60,7 +75,7 @@
 	}
 }
 
-.modal-builder-container {
+.easy-pop-container {
 	position: relative;
 	border-radius: 8px;
 	max-width: 600px;
@@ -74,117 +89,124 @@
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 	}
 
+	// Full-width size variant
+	.easy-pop-overlay[data-size="full-width"] & {
+		max-width: none !important;
+		width: 100vw !important;
+		border-radius: 0 !important;
+	}
+
 	// Animation: Fade
-	.modal-builder-overlay[data-animation="fade"] & {
+	.easy-pop-overlay[data-animation="fade"] & {
 		opacity: 0;
 	}
 
-	.modal-builder-overlay[data-animation="fade"].is-visible & {
+	.easy-pop-overlay[data-animation="fade"].is-visible & {
 		opacity: 1;
 	}
 
-	.modal-builder-overlay[data-animation="fade"].is-closing & {
+	.easy-pop-overlay[data-animation="fade"].is-closing & {
 		opacity: 0;
 	}
 
 	// Animation: Slide Up
-	.modal-builder-overlay[data-animation="slide-up"] & {
+	.easy-pop-overlay[data-animation="slide-up"] & {
 		transform: translateY(50px);
 		opacity: 0;
 	}
 
-	.modal-builder-overlay[data-animation="slide-up"].is-visible & {
+	.easy-pop-overlay[data-animation="slide-up"].is-visible & {
 		transform: translateY(0);
 		opacity: 1;
 	}
 
-	.modal-builder-overlay[data-animation="slide-up"].is-closing & {
+	.easy-pop-overlay[data-animation="slide-up"].is-closing & {
 		transform: translateY(50px);
 		opacity: 0;
 	}
 
 	// Animation: Slide Down
-	.modal-builder-overlay[data-animation="slide-down"] & {
+	.easy-pop-overlay[data-animation="slide-down"] & {
 		transform: translateY(-50px);
 		opacity: 0;
 	}
 
-	.modal-builder-overlay[data-animation="slide-down"].is-visible & {
+	.easy-pop-overlay[data-animation="slide-down"].is-visible & {
 		transform: translateY(0);
 		opacity: 1;
 	}
 
-	.modal-builder-overlay[data-animation="slide-down"].is-closing & {
+	.easy-pop-overlay[data-animation="slide-down"].is-closing & {
 		transform: translateY(-50px);
 		opacity: 0;
 	}
 
 	// Animation: Slide Left
-	.modal-builder-overlay[data-animation="slide-left"] & {
+	.easy-pop-overlay[data-animation="slide-left"] & {
 		transform: translateX(50px);
 		opacity: 0;
 	}
 
-	.modal-builder-overlay[data-animation="slide-left"].is-visible & {
+	.easy-pop-overlay[data-animation="slide-left"].is-visible & {
 		transform: translateX(0);
 		opacity: 1;
 	}
 
-	.modal-builder-overlay[data-animation="slide-left"].is-closing & {
+	.easy-pop-overlay[data-animation="slide-left"].is-closing & {
 		transform: translateX(50px);
 		opacity: 0;
 	}
 
 	// Animation: Slide Right
-	.modal-builder-overlay[data-animation="slide-right"] & {
+	.easy-pop-overlay[data-animation="slide-right"] & {
 		transform: translateX(-50px);
 		opacity: 0;
 	}
 
-	.modal-builder-overlay[data-animation="slide-right"].is-visible & {
+	.easy-pop-overlay[data-animation="slide-right"].is-visible & {
 		transform: translateX(0);
 		opacity: 1;
 	}
 
-	.modal-builder-overlay[data-animation="slide-right"].is-closing & {
+	.easy-pop-overlay[data-animation="slide-right"].is-closing & {
 		transform: translateX(-50px);
 		opacity: 0;
 	}
 
 	// Animation: Zoom In
-	.modal-builder-overlay[data-animation="zoom-in"] & {
+	.easy-pop-overlay[data-animation="zoom-in"] & {
 		transform: scale(0.8);
 		opacity: 0;
 	}
 
-	.modal-builder-overlay[data-animation="zoom-in"].is-visible & {
+	.easy-pop-overlay[data-animation="zoom-in"].is-visible & {
 		transform: scale(1);
 		opacity: 1;
 	}
 
-	.modal-builder-overlay[data-animation="zoom-in"].is-closing & {
+	.easy-pop-overlay[data-animation="zoom-in"].is-closing & {
 		transform: scale(0.8);
 		opacity: 0;
 	}
 
 	// Animation: Zoom Out
-	.modal-builder-overlay[data-animation="zoom-out"] & {
+	.easy-pop-overlay[data-animation="zoom-out"] & {
 		transform: scale(1.2);
 		opacity: 0;
 	}
 
-	.modal-builder-overlay[data-animation="zoom-out"].is-visible & {
+	.easy-pop-overlay[data-animation="zoom-out"].is-visible & {
 		transform: scale(1);
 		opacity: 1;
 	}
 
-	.modal-builder-overlay[data-animation="zoom-out"].is-closing & {
+	.easy-pop-overlay[data-animation="zoom-out"].is-closing & {
 		transform: scale(1.2);
 		opacity: 0;
 	}
 }
 
-.modal-builder-close {
+.easy-pop-close {
 	position: absolute;
 	top: 15px;
 	right: 15px;
@@ -228,7 +250,7 @@
 	}
 }
 
-.modal-builder-content {
+.easy-pop-content {
 
 	> * {
 		max-width: 100%;
@@ -245,26 +267,26 @@
 
 // Device visibility
 @media (min-width: 1024px) {
-	.modal-builder-overlay[data-devices="tablet"],
-	.modal-builder-overlay[data-devices="mobile"] {
+	.easy-pop-overlay[data-devices="tablet"],
+	.easy-pop-overlay[data-devices="mobile"] {
 		display: none !important;
 	}
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
-	.modal-builder-overlay[data-devices="desktop"],
-	.modal-builder-overlay[data-devices="mobile"] {
+	.easy-pop-overlay[data-devices="desktop"],
+	.easy-pop-overlay[data-devices="mobile"] {
 		display: none !important;
 	}
 }
 
 @media (max-width: 767px) {
-	.modal-builder-overlay[data-devices="desktop"],
-	.modal-builder-overlay[data-devices="tablet"] {
+	.easy-pop-overlay[data-devices="desktop"],
+	.easy-pop-overlay[data-devices="tablet"] {
 		display: none !important;
 	}
 
-	.modal-builder-container {
+	.easy-pop-container {
 		max-width: 100%;
 		border-radius: 0;
 		max-height: 100vh;

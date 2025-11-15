@@ -242,11 +242,12 @@
 	 */
 	function createModal( modal ) {
 		const overlay = document.createElement( 'div' );
-		overlay.className = 'modal-builder-overlay';
+		overlay.className = 'easy-pop-overlay';
 		overlay.setAttribute( 'role', 'dialog' );
 		overlay.setAttribute( 'aria-modal', 'true' );
-		overlay.setAttribute( 'aria-labelledby', 'modal-builder-' + modal.id );
+		overlay.setAttribute( 'aria-labelledby', 'easy-pop-' + modal.id );
 		overlay.setAttribute( 'data-modal-id', modal.id );
+		overlay.setAttribute( 'data-size', modal.size || 'default' );
 		overlay.setAttribute( 'data-position', modal.position );
 		overlay.setAttribute( 'data-animation', modal.animation );
 		overlay.style.backgroundColor = 'rgba(0, 0, 0, ' + ( modal.overlayOpacity / 100 ) + ')';
@@ -256,19 +257,19 @@
 		}
 
 		const container = document.createElement( 'div' );
-		container.className = 'modal-builder-container';
+		container.className = 'easy-pop-container';
 
 		if ( modal.showCloseButton ) {
 			const closeButton = document.createElement( 'button' );
-			closeButton.className = 'modal-builder-close';
+			closeButton.className = 'easy-pop-close';
 			closeButton.setAttribute( 'aria-label', 'Close modal' );
 			closeButton.setAttribute( 'type', 'button' );
 			container.appendChild( closeButton );
 		}
 
 		const content = document.createElement( 'div' );
-		content.className = 'modal-builder-content';
-		content.id = 'modal-builder-' + modal.id;
+		content.className = 'easy-pop-content';
+		content.id = 'easy-pop-' + modal.id;
 		content.innerHTML = modal.content;
 
 		container.appendChild( content );
@@ -297,7 +298,7 @@
 
 		incrementFrequencyCount( modal.id, modal.frequencyPeriod );
 
-		const closeButton = modalElement.querySelector( '.modal-builder-close' );
+		const closeButton = modalElement.querySelector( '.easy-pop-close' );
 		if ( closeButton ) {
 			closeButton.addEventListener( 'click', closeModal );
 			closeButton.focus();

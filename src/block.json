@@ -2,9 +2,9 @@
   {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "telex/block-modal-builder",
+	"name": "telex/block-easy-pop",
 	"version": "0.1.0",
-	"title": "Modal Builder",
+	"title": "Popup Builder",
 	"category": "widgets",
 	"icon": "welcome-view-site",
 	"description": "Create beautiful modals and popups using the WordPress block editor",
