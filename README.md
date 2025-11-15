@@ -178,7 +178,6 @@ No! The plugin is optimized for performance with minimal JavaScript (under 3KB) 
 
 ## Privacy & GDPR — TK
 
-
 ## Changelog
 
 ### Version 0.3.0
