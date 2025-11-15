@@ -112,17 +112,20 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     font-family: 'Newake', 'DM Sans', sans-serif;
     font-size: 4rem;
-    line-height: 1
+    line-height: 1;
+    letter-spacing: 2px;
 }
 
 h2 {
     font-family: 'Newake', 'DM Sans', sans-serif;
     font-size: 3.5rem;
+    letter-spacing: 2px;
 }
 
 h3 {
     font-size: 2rem;
     font-weight: 900;
+    letter-spacing: 0;
 }
 
 h4 {
