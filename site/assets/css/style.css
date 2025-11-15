@@ -173,8 +173,8 @@ a:hover {
 }
 
 .btn-primary {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-accent);
+    color: var(--color-night);
     border-color: var(--color-night);
 }
 
@@ -183,8 +183,8 @@ a:hover {
 }
 
 .btn-primary:hover {
-    background-color: var(--color-butter);
-    color: var(--color-night);
+    background-color: var(--color-bg-light);
+    color: var(--color-primary);
 }
 
 .btn-secondary {
@@ -243,6 +243,10 @@ a:hover {
     color: var(--color-night);
     display: inline-block;
     vertical-align: top;
+}
+
+.footer .btn-primary:hover .footer-logo-icon {
+   color: var(--color-cherry);
 }
 
 .logo-text {
@@ -634,7 +638,7 @@ a:hover {
 }
 
 .footer-section h3 { 
-   color: var(--color-bg-light);
+   color: var(--color-night);
    font-size: 1.3rem;
 }
 
