@@ -2,13 +2,13 @@
 /**
  * Plugin Name:       Easy Pop - Perfect Popups for Wordpress
  * Description:       Create beautiful modals and popups using the WordPress block editor with powerful targeting and display options.
- * Version:           0.3.0
+ * Version:           0.4.1
  * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            Hanscom Park Studio
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       modal-builder
+ * Text Domain:       easy-pop
  *
  * @package ModalBuilder
  */
@@ -29,21 +29,21 @@ function modal_builder_register_post_type() {
 	');
 	
 	$labels = array(
-		'name'                  => _x( 'Popups', 'Post type general name', 'modal-builder' ),
-		'singular_name'         => _x( 'Popup', 'Post type singular name', 'modal-builder' ),
-		'menu_name'             => _x( 'Popups', 'Admin Menu text', 'modal-builder' ),
-		'name_admin_bar'        => _x( 'Popup', 'Add New on Toolbar', 'modal-builder' ),
-		'add_new'               => __( 'Add New', 'modal-builder' ),
-		'add_new_item'          => __( 'Add New Popup', 'modal-builder' ),
-		'new_item'              => __( 'New Popup', 'modal-builder' ),
-		'edit_item'             => __( 'Edit Popup', 'modal-builder' ),
-		'view_item'             => __( 'View Popup', 'modal-builder' ),
-		'all_items'             => __( 'All Popups', 'modal-builder' ),
-		'search_items'          => __( 'Search Popups', 'modal-builder' ),
-		'not_found'             => __( 'No popups found.', 'modal-builder' ),
-		'not_found_in_trash'    => __( 'No popups found in Trash.', 'modal-builder' ),
-		'item_published'        => __( 'Popup published.', 'modal-builder' ),
-		'item_updated'          => __( 'Popup updated.', 'modal-builder' ),
+		'name'                  => _x( 'Popups', 'Post type general name', 'easy-pop' ),
+		'singular_name'         => _x( 'Popup', 'Post type singular name', 'easy-pop' ),
+		'menu_name'             => _x( 'Popups', 'Admin Menu text', 'easy-pop' ),
+		'name_admin_bar'        => _x( 'Popup', 'Add New on Toolbar', 'easy-pop' ),
+		'add_new'               => __( 'Add New', 'easy-pop' ),
+		'add_new_item'          => __( 'Add New Popup', 'easy-pop' ),
+		'new_item'              => __( 'New Popup', 'easy-pop' ),
+		'edit_item'             => __( 'Edit Popup', 'easy-pop' ),
+		'view_item'             => __( 'View Popup', 'easy-pop' ),
+		'all_items'             => __( 'All Popups', 'easy-pop' ),
+		'search_items'          => __( 'Search Popups', 'easy-pop' ),
+		'not_found'             => __( 'No popups found.', 'easy-pop' ),
+		'not_found_in_trash'    => __( 'No popups found in Trash.', 'easy-pop' ),
+		'item_published'        => __( 'Popup published.', 'easy-pop' ),
+		'item_updated'          => __( 'Popup updated.', 'easy-pop' ),
 	);
 
 	$args = array(
@@ -63,7 +63,7 @@ function modal_builder_register_post_type() {
 		'show_in_rest'       => true,
 		'template'           => array(
 			array( 'core/paragraph', array(
-				'placeholder' => __( 'Start designing your popup content here using any blocks...', 'modal-builder' ),
+				'placeholder' => __( 'Start designing your popup content here using any blocks...', 'easy-pop' ),
 			) ),
 		),
 	);
@@ -78,10 +78,10 @@ add_action( 'init', 'modal_builder_register_post_type' );
 function modal_builder_add_settings_page() {
 	add_submenu_page(
 		'edit.php?post_type=modal',
-		__( 'Default Settings', 'modal-builder' ),
-		__( 'Settings', 'modal-builder' ),
+		__( 'Default Settings', 'easy-pop' ),
+		__( 'Settings', 'easy-pop' ),
 		'manage_options',
-		'modal-builder-settings',
+		'easy-pop-settings',
 		'modal_builder_render_settings_page'
 	);
 }
@@ -167,185 +167,187 @@ function modal_builder_render_settings_page() {
 		$defaults['modal_esc_close'] = isset( $_POST['modal_esc_close'] );
 
 		update_option( 'modal_builder_defaults', $defaults );
-		echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Default settings saved successfully!', 'modal-builder' ) . '</p></div>';
+		echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__( 'Default settings saved successfully!', 'easy-pop' ) . '</p></div>';
 	}
 
 	$defaults = modal_builder_get_defaults();
 	?>
 	<div class="wrap">
-		<h1><?php echo esc_html__( 'Popup Default Settings', 'modal-builder' ); ?></h1>
-		<p><?php echo esc_html__( 'These default settings will be applied to all new popups. Existing popups will not be affected.', 'modal-builder' ); ?></p>
+		<h1><?php echo esc_html__( 'Popup Default Settings', 'easy-pop' ); ?></h1>
+		<p><?php echo esc_html__( 'These default settings will be applied to all new popups. Existing popups will not be affected.', 'easy-pop' ); ?></p>
 
 		<form method="post" action="">
 			<?php wp_nonce_field( 'modal_builder_defaults' ); ?>
 
-			<h2 class="title"><?php echo esc_html__( 'Triggers', 'modal-builder' ); ?></h2>
+			<h2 class="title"><?php echo esc_html__( 'Triggers', 'easy-pop' ); ?></h2>
 			<table class="form-table" role="presentation">
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Trigger Type', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Trigger Type', 'easy-pop' ); ?></th>
 					<td>
 						<select name="modal_trigger_type" id="modal_trigger_type">
-							<option value="page_load" <?php selected( $defaults['modal_trigger_type'], 'page_load' ); ?>><?php echo esc_html__( 'On Page Load', 'modal-builder' ); ?></option>
-							<option value="scroll" <?php selected( $defaults['modal_trigger_type'], 'scroll' ); ?>><?php echo esc_html__( 'On Scroll', 'modal-builder' ); ?></option>
-							<option value="click" <?php selected( $defaults['modal_trigger_type'], 'click' ); ?>><?php echo esc_html__( 'On Click', 'modal-builder' ); ?></option>
-							<option value="exit_intent" <?php selected( $defaults['modal_trigger_type'], 'exit_intent' ); ?>><?php echo esc_html__( 'Exit Intent', 'modal-builder' ); ?></option>
-							<option value="inactivity" <?php selected( $defaults['modal_trigger_type'], 'inactivity' ); ?>><?php echo esc_html__( 'After Inactivity', 'modal-builder' ); ?></option>
-							<option value="scroll_element" <?php selected( $defaults['modal_trigger_type'], 'scroll_element' ); ?>><?php echo esc_html__( 'On Scroll To Element', 'modal-builder' ); ?></option>
+							<option value="page_load" <?php selected( $defaults['modal_trigger_type'], 'page_load' ); ?>><?php echo esc_html__( 'On Page Load', 'easy-pop' ); ?></option>
+							<option value="scroll" <?php selected( $defaults['modal_trigger_type'], 'scroll' ); ?>><?php echo esc_html__( 'On Scroll', 'easy-pop' ); ?></option>
+							<option value="click" <?php selected( $defaults['modal_trigger_type'], 'click' ); ?>><?php echo esc_html__( 'On Click', 'easy-pop' ); ?></option>
+							<option value="exit_intent" <?php selected( $defaults['modal_trigger_type'], 'exit_intent' ); ?>><?php echo esc_html__( 'Exit Intent', 'easy-pop' ); ?></option>
+							<option value="inactivity" <?php selected( $defaults['modal_trigger_type'], 'inactivity' ); ?>><?php echo esc_html__( 'After Inactivity', 'easy-pop' ); ?></option>
+							<option value="scroll_element" <?php selected( $defaults['modal_trigger_type'], 'scroll_element' ); ?>><?php echo esc_html__( 'On Scroll To Element', 'easy-pop' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Delay (seconds)', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Delay (seconds)', 'easy-pop' ); ?></th>
 					<td><input type="number" name="modal_trigger_delay" value="<?php echo esc_attr( $defaults['modal_trigger_delay'] ); ?>" min="0" max="60" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Scroll Percentage', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Scroll Percentage', 'easy-pop' ); ?></th>
 					<td><input type="number" name="modal_trigger_scroll_percentage" value="<?php echo esc_attr( $defaults['modal_trigger_scroll_percentage'] ); ?>" min="0" max="100" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Click Selector', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Click Selector', 'easy-pop' ); ?></th>
 					<td><input type="text" name="modal_trigger_click_selector" value="<?php echo esc_attr( $defaults['modal_trigger_click_selector'] ); ?>" class="regular-text" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Inactivity Duration (seconds)', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Inactivity Duration (seconds)', 'easy-pop' ); ?></th>
 					<td><input type="number" name="modal_trigger_inactivity_seconds" value="<?php echo esc_attr( $defaults['modal_trigger_inactivity_seconds'] ); ?>" min="5" max="300" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Scroll Element Selector', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Scroll Element Selector', 'easy-pop' ); ?></th>
 					<td><input type="text" name="modal_trigger_scroll_element" value="<?php echo esc_attr( $defaults['modal_trigger_scroll_element'] ); ?>" class="regular-text" /></td>
 				</tr>
 			</table>
 
-			<h2 class="title"><?php echo esc_html__( 'Display Rules', 'modal-builder' ); ?></h2>
+			<h2 class="title"><?php echo esc_html__( 'Display Rules', 'easy-pop' ); ?></h2>
 			<table class="form-table" role="presentation">
+				
+
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Page Views Threshold', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Page Views Threshold', 'easy-pop' ); ?></th>
 					<td><input type="number" name="modal_page_views_threshold" value="<?php echo esc_attr( $defaults['modal_page_views_threshold'] ); ?>" min="0" max="50" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Session Threshold', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Session Threshold', 'easy-pop' ); ?></th>
 					<td><input type="number" name="modal_session_threshold" value="<?php echo esc_attr( $defaults['modal_session_threshold'] ); ?>" min="0" max="20" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Frequency Limit', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Frequency Limit', 'easy-pop' ); ?></th>
 					<td><input type="number" name="modal_frequency_limit" value="<?php echo esc_attr( $defaults['modal_frequency_limit'] ); ?>" min="0" max="50" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Frequency Period', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Frequency Period', 'easy-pop' ); ?></th>
 					<td>
 						<select name="modal_frequency_period">
-							<option value="session" <?php selected( $defaults['modal_frequency_period'], 'session' ); ?>><?php echo esc_html__( 'Per Session', 'modal-builder' ); ?></option>
-							<option value="day" <?php selected( $defaults['modal_frequency_period'], 'day' ); ?>><?php echo esc_html__( 'Per Day', 'modal-builder' ); ?></option>
-							<option value="week" <?php selected( $defaults['modal_frequency_period'], 'week' ); ?>><?php echo esc_html__( 'Per Week', 'modal-builder' ); ?></option>
-							<option value="month" <?php selected( $defaults['modal_frequency_period'], 'month' ); ?>><?php echo esc_html__( 'Per Month', 'modal-builder' ); ?></option>
-							<option value="lifetime" <?php selected( $defaults['modal_frequency_period'], 'lifetime' ); ?>><?php echo esc_html__( 'Lifetime', 'modal-builder' ); ?></option>
+							<option value="session" <?php selected( $defaults['modal_frequency_period'], 'session' ); ?>><?php echo esc_html__( 'Per Session', 'easy-pop' ); ?></option>
+							<option value="day" <?php selected( $defaults['modal_frequency_period'], 'day' ); ?>><?php echo esc_html__( 'Per Day', 'easy-pop' ); ?></option>
+							<option value="week" <?php selected( $defaults['modal_frequency_period'], 'week' ); ?>><?php echo esc_html__( 'Per Week', 'easy-pop' ); ?></option>
+							<option value="month" <?php selected( $defaults['modal_frequency_period'], 'month' ); ?>><?php echo esc_html__( 'Per Month', 'easy-pop' ); ?></option>
+							<option value="lifetime" <?php selected( $defaults['modal_frequency_period'], 'lifetime' ); ?>><?php echo esc_html__( 'Lifetime', 'easy-pop' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default User Targeting', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default User Targeting', 'easy-pop' ); ?></th>
 					<td>
 						<select name="modal_user_targeting">
-							<option value="all" <?php selected( $defaults['modal_user_targeting'], 'all' ); ?>><?php echo esc_html__( 'All Users', 'modal-builder' ); ?></option>
-							<option value="logged_in" <?php selected( $defaults['modal_user_targeting'], 'logged_in' ); ?>><?php echo esc_html__( 'Logged In Only', 'modal-builder' ); ?></option>
-							<option value="logged_out" <?php selected( $defaults['modal_user_targeting'], 'logged_out' ); ?>><?php echo esc_html__( 'Logged Out Only', 'modal-builder' ); ?></option>
+							<option value="all" <?php selected( $defaults['modal_user_targeting'], 'all' ); ?>><?php echo esc_html__( 'All Users', 'easy-pop' ); ?></option>
+							<option value="logged_in" <?php selected( $defaults['modal_user_targeting'], 'logged_in' ); ?>><?php echo esc_html__( 'Logged In Only', 'easy-pop' ); ?></option>
+							<option value="logged_out" <?php selected( $defaults['modal_user_targeting'], 'logged_out' ); ?>><?php echo esc_html__( 'Logged Out Only', 'easy-pop' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Device Targeting', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Device Targeting', 'easy-pop' ); ?></th>
 					<td>
 						<select name="modal_devices">
-							<option value="all" <?php selected( $defaults['modal_devices'], 'all' ); ?>><?php echo esc_html__( 'All Devices', 'modal-builder' ); ?></option>
-							<option value="desktop" <?php selected( $defaults['modal_devices'], 'desktop' ); ?>><?php echo esc_html__( 'Desktop Only', 'modal-builder' ); ?></option>
-							<option value="tablet" <?php selected( $defaults['modal_devices'], 'tablet' ); ?>><?php echo esc_html__( 'Tablet Only', 'modal-builder' ); ?></option>
-							<option value="mobile" <?php selected( $defaults['modal_devices'], 'mobile' ); ?>><?php echo esc_html__( 'Mobile Only', 'modal-builder' ); ?></option>
+							<option value="all" <?php selected( $defaults['modal_devices'], 'all' ); ?>><?php echo esc_html__( 'All Devices', 'easy-pop' ); ?></option>
+							<option value="desktop" <?php selected( $defaults['modal_devices'], 'desktop' ); ?>><?php echo esc_html__( 'Desktop Only', 'easy-pop' ); ?></option>
+							<option value="tablet" <?php selected( $defaults['modal_devices'], 'tablet' ); ?>><?php echo esc_html__( 'Tablet Only', 'easy-pop' ); ?></option>
+							<option value="mobile" <?php selected( $defaults['modal_devices'], 'mobile' ); ?>><?php echo esc_html__( 'Mobile Only', 'easy-pop' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Browser Detection', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Browser Detection', 'easy-pop' ); ?></th>
 					<td>
 						<select name="modal_browsers">
-							<option value="all" <?php selected( $defaults['modal_browsers'], 'all' ); ?>><?php echo esc_html__( 'All Browsers', 'modal-builder' ); ?></option>
-							<option value="chrome" <?php selected( $defaults['modal_browsers'], 'chrome' ); ?>><?php echo esc_html__( 'Chrome Only', 'modal-builder' ); ?></option>
-							<option value="firefox" <?php selected( $defaults['modal_browsers'], 'firefox' ); ?>><?php echo esc_html__( 'Firefox Only', 'modal-builder' ); ?></option>
-							<option value="safari" <?php selected( $defaults['modal_browsers'], 'safari' ); ?>><?php echo esc_html__( 'Safari Only', 'modal-builder' ); ?></option>
-							<option value="edge" <?php selected( $defaults['modal_browsers'], 'edge' ); ?>><?php echo esc_html__( 'Edge Only', 'modal-builder' ); ?></option>
+							<option value="all" <?php selected( $defaults['modal_browsers'], 'all' ); ?>><?php echo esc_html__( 'All Browsers', 'easy-pop' ); ?></option>
+							<option value="chrome" <?php selected( $defaults['modal_browsers'], 'chrome' ); ?>><?php echo esc_html__( 'Chrome Only', 'easy-pop' ); ?></option>
+							<option value="firefox" <?php selected( $defaults['modal_browsers'], 'firefox' ); ?>><?php echo esc_html__( 'Firefox Only', 'easy-pop' ); ?></option>
+							<option value="safari" <?php selected( $defaults['modal_browsers'], 'safari' ); ?>><?php echo esc_html__( 'Safari Only', 'easy-pop' ); ?></option>
+							<option value="edge" <?php selected( $defaults['modal_browsers'], 'edge' ); ?>><?php echo esc_html__( 'Edge Only', 'easy-pop' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Referrer Filter', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Referrer Filter', 'easy-pop' ); ?></th>
 					<td><input type="text" name="modal_referrer_filter" value="<?php echo esc_attr( $defaults['modal_referrer_filter'] ); ?>" class="regular-text" /></td>
 				</tr>
 			</table>
 
-			<h2 class="title"><?php echo esc_html__( 'Page/Post Targeting', 'modal-builder' ); ?></h2>
+			<h2 class="title"><?php echo esc_html__( 'Page/Post Targeting', 'easy-pop' ); ?></h2>
 			<table class="form-table" role="presentation">
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Page Targeting', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Page Targeting', 'easy-pop' ); ?></th>
 					<td>
 						<select name="modal_page_targeting">
-							<option value="entire_site" <?php selected( $defaults['modal_page_targeting'], 'entire_site' ); ?>><?php echo esc_html__( 'Entire Site', 'modal-builder' ); ?></option>
-							<option value="homepage_only" <?php selected( $defaults['modal_page_targeting'], 'homepage_only' ); ?>><?php echo esc_html__( 'Homepage Only', 'modal-builder' ); ?></option>
-							<option value="posts_only" <?php selected( $defaults['modal_page_targeting'], 'posts_only' ); ?>><?php echo esc_html__( 'Posts Only', 'modal-builder' ); ?></option>
-							<option value="pages_only" <?php selected( $defaults['modal_page_targeting'], 'pages_only' ); ?>><?php echo esc_html__( 'Pages Only', 'modal-builder' ); ?></option>
-							<option value="selected_posts_pages" <?php selected( $defaults['modal_page_targeting'], 'selected_posts_pages' ); ?>><?php echo esc_html__( 'Selected Posts/Pages', 'modal-builder' ); ?></option>
+							<option value="entire_site" <?php selected( $defaults['modal_page_targeting'], 'entire_site' ); ?>><?php echo esc_html__( 'Entire Site', 'easy-pop' ); ?></option>
+							<option value="homepage_only" <?php selected( $defaults['modal_page_targeting'], 'homepage_only' ); ?>><?php echo esc_html__( 'Homepage Only', 'easy-pop' ); ?></option>
+							<option value="posts_only" <?php selected( $defaults['modal_page_targeting'], 'posts_only' ); ?>><?php echo esc_html__( 'Posts Only', 'easy-pop' ); ?></option>
+							<option value="pages_only" <?php selected( $defaults['modal_page_targeting'], 'pages_only' ); ?>><?php echo esc_html__( 'Pages Only', 'easy-pop' ); ?></option>
+							<option value="selected_posts_pages" <?php selected( $defaults['modal_page_targeting'], 'selected_posts_pages' ); ?>><?php echo esc_html__( 'Selected Posts/Pages', 'easy-pop' ); ?></option>
 						</select>
 					</td>
 				</tr>
 			</table>
 
-			<h2 class="title"><?php echo esc_html__( 'Display Options', 'modal-builder' ); ?></h2>
+			<h2 class="title"><?php echo esc_html__( 'Display Options', 'easy-pop' ); ?></h2>
 			<table class="form-table" role="presentation">
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Position', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Position', 'easy-pop' ); ?></th>
 					<td>
 						<select name="modal_position">
-							<option value="center" <?php selected( $defaults['modal_position'], 'center' ); ?>><?php echo esc_html__( 'Center', 'modal-builder' ); ?></option>
-							<option value="top-left" <?php selected( $defaults['modal_position'], 'top-left' ); ?>><?php echo esc_html__( 'Top Left', 'modal-builder' ); ?></option>
-							<option value="top-center" <?php selected( $defaults['modal_position'], 'top-center' ); ?>><?php echo esc_html__( 'Top Center', 'modal-builder' ); ?></option>
-							<option value="top-right" <?php selected( $defaults['modal_position'], 'top-right' ); ?>><?php echo esc_html__( 'Top Right', 'modal-builder' ); ?></option>
-							<option value="bottom-left" <?php selected( $defaults['modal_position'], 'bottom-left' ); ?>><?php echo esc_html__( 'Bottom Left', 'modal-builder' ); ?></option>
-							<option value="bottom-center" <?php selected( $defaults['modal_position'], 'bottom-center' ); ?>><?php echo esc_html__( 'Bottom Center', 'modal-builder' ); ?></option>
-							<option value="bottom-right" <?php selected( $defaults['modal_position'], 'bottom-right' ); ?>><?php echo esc_html__( 'Bottom Right', 'modal-builder' ); ?></option>
+							<option value="center" <?php selected( $defaults['modal_position'], 'center' ); ?>><?php echo esc_html__( 'Center', 'easy-pop' ); ?></option>
+							<option value="top-left" <?php selected( $defaults['modal_position'], 'top-left' ); ?>><?php echo esc_html__( 'Top Left', 'easy-pop' ); ?></option>
+							<option value="top-center" <?php selected( $defaults['modal_position'], 'top-center' ); ?>><?php echo esc_html__( 'Top Center', 'easy-pop' ); ?></option>
+							<option value="top-right" <?php selected( $defaults['modal_position'], 'top-right' ); ?>><?php echo esc_html__( 'Top Right', 'easy-pop' ); ?></option>
+							<option value="bottom-left" <?php selected( $defaults['modal_position'], 'bottom-left' ); ?>><?php echo esc_html__( 'Bottom Left', 'easy-pop' ); ?></option>
+							<option value="bottom-center" <?php selected( $defaults['modal_position'], 'bottom-center' ); ?>><?php echo esc_html__( 'Bottom Center', 'easy-pop' ); ?></option>
+							<option value="bottom-right" <?php selected( $defaults['modal_position'], 'bottom-right' ); ?>><?php echo esc_html__( 'Bottom Right', 'easy-pop' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Animation Effect', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Animation Effect', 'easy-pop' ); ?></th>
 					<td>
 						<select name="modal_animation">
-							<option value="fade" <?php selected( $defaults['modal_animation'], 'fade' ); ?>><?php echo esc_html__( 'Fade', 'modal-builder' ); ?></option>
-							<option value="slide-up" <?php selected( $defaults['modal_animation'], 'slide-up' ); ?>><?php echo esc_html__( 'Slide Up', 'modal-builder' ); ?></option>
-							<option value="slide-down" <?php selected( $defaults['modal_animation'], 'slide-down' ); ?>><?php echo esc_html__( 'Slide Down', 'modal-builder' ); ?></option>
-							<option value="slide-left" <?php selected( $defaults['modal_animation'], 'slide-left' ); ?>><?php echo esc_html__( 'Slide Left', 'modal-builder' ); ?></option>
-							<option value="slide-right" <?php selected( $defaults['modal_animation'], 'slide-right' ); ?>><?php echo esc_html__( 'Slide Right', 'modal-builder' ); ?></option>
-							<option value="zoom-in" <?php selected( $defaults['modal_animation'], 'zoom-in' ); ?>><?php echo esc_html__( 'Zoom In', 'modal-builder' ); ?></option>
-							<option value="zoom-out" <?php selected( $defaults['modal_animation'], 'zoom-out' ); ?>><?php echo esc_html__( 'Zoom Out', 'modal-builder' ); ?></option>
+							<option value="fade" <?php selected( $defaults['modal_animation'], 'fade' ); ?>><?php echo esc_html__( 'Fade', 'easy-pop' ); ?></option>
+							<option value="slide-up" <?php selected( $defaults['modal_animation'], 'slide-up' ); ?>><?php echo esc_html__( 'Slide Up', 'easy-pop' ); ?></option>
+							<option value="slide-down" <?php selected( $defaults['modal_animation'], 'slide-down' ); ?>><?php echo esc_html__( 'Slide Down', 'easy-pop' ); ?></option>
+							<option value="slide-left" <?php selected( $defaults['modal_animation'], 'slide-left' ); ?>><?php echo esc_html__( 'Slide Left', 'easy-pop' ); ?></option>
+							<option value="slide-right" <?php selected( $defaults['modal_animation'], 'slide-right' ); ?>><?php echo esc_html__( 'Slide Right', 'easy-pop' ); ?></option>
+							<option value="zoom-in" <?php selected( $defaults['modal_animation'], 'zoom-in' ); ?>><?php echo esc_html__( 'Zoom In', 'easy-pop' ); ?></option>
+							<option value="zoom-out" <?php selected( $defaults['modal_animation'], 'zoom-out' ); ?>><?php echo esc_html__( 'Zoom Out', 'easy-pop' ); ?></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Overlay Opacity', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Overlay Opacity', 'easy-pop' ); ?></th>
 					<td><input type="number" name="modal_overlay_opacity" value="<?php echo esc_attr( $defaults['modal_overlay_opacity'] ); ?>" min="0" max="100" /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Close Button', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Close Button', 'easy-pop' ); ?></th>
 					<td><input type="checkbox" name="modal_show_close_button" value="1" <?php checked( $defaults['modal_show_close_button'], true ); ?> /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default Backdrop Close', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default Backdrop Close', 'easy-pop' ); ?></th>
 					<td><input type="checkbox" name="modal_backdrop_close" value="1" <?php checked( $defaults['modal_backdrop_close'], true ); ?> /></td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo esc_html__( 'Default ESC Key Close', 'modal-builder' ); ?></th>
+					<th scope="row"><?php echo esc_html__( 'Default ESC Key Close', 'easy-pop' ); ?></th>
 					<td><input type="checkbox" name="modal_esc_close" value="1" <?php checked( $defaults['modal_esc_close'], true ); ?> /></td>
 				</tr>
 			</table>
 
-			<?php submit_button( __( 'Save Default Settings', 'modal-builder' ), 'primary', 'modal_builder_save_defaults' ); ?>
+			<?php submit_button( __( 'Save Default Settings', 'easy-pop' ), 'primary', 'modal_builder_save_defaults' ); ?>
 		</form>
 	</div>
 	<?php
@@ -486,6 +488,13 @@ function modal_builder_register_meta() {
 	) );
 
 	// Display options
+	register_post_meta( 'modal', 'modal_size', array(
+		'type'         => 'string',
+		'single'       => true,
+		'show_in_rest' => true,
+		'default'      => 'default',
+	) );
+
 	register_post_meta( 'modal', 'modal_position', array(
 		'type'         => 'string',
 		'single'       => true,
@@ -589,6 +598,7 @@ function modal_builder_enqueue_frontend_assets() {
 			'referrerFilter'          => get_post_meta( $modal->ID, 'modal_referrer_filter', true ),
 			'pageTargeting'           => get_post_meta( $modal->ID, 'modal_page_targeting', true ) ?: 'entire_site',
 			'targetPostsPages'        => get_post_meta( $modal->ID, 'modal_target_posts_pages', true ) ?: '',
+			'size'                    => get_post_meta( $modal->ID, 'modal_size', true ) ?: 'default',
 			'position'                => get_post_meta( $modal->ID, 'modal_position', true ) ?: 'center',
 			'animation'               => get_post_meta( $modal->ID, 'modal_animation', true ) ?: 'fade',
 			'overlayOpacity'          => (int) get_post_meta( $modal->ID, 'modal_overlay_opacity', true ),
@@ -603,14 +613,14 @@ function modal_builder_enqueue_frontend_assets() {
 	}
 
 	wp_enqueue_style(
-		'modal-builder-frontend',
+		'easy-pop-frontend',
 		plugins_url( 'build/style-index.css', __FILE__ ),
 		array(),
 		'0.1.0'
 	);
 
 	wp_enqueue_script(
-		'modal-builder-frontend',
+		'easy-pop-frontend',
 		plugins_url( 'build/view.js', __FILE__ ),
 		array(),
 		'0.1.0',
@@ -623,7 +633,7 @@ function modal_builder_enqueue_frontend_assets() {
 	$is_page = is_page();
 	$is_post = is_single() && ! is_page();
 
-	wp_localize_script( 'modal-builder-frontend', 'modalBuilderData', array(
+	wp_localize_script( 'easy-pop-frontend', 'modalBuilderData', array(
 		'modals' => $modal_data,
 		'pageContext' => array(
 			'currentPostId' => $current_post_id,
@@ -645,7 +655,7 @@ function modal_builder_enqueue_editor_assets() {
 	}
 
 	wp_enqueue_script(
-		'modal-builder-editor',
+		'easy-pop-editor',
 		plugins_url( 'build/index.js', __FILE__ ),
 		array( 'wp-plugins', 'wp-edit-post', 'wp-element', 'wp-components', 'wp-data' ),
 		'0.1.0',
@@ -653,7 +663,7 @@ function modal_builder_enqueue_editor_assets() {
 	);
 
 	wp_enqueue_style(
-		'modal-builder-editor',
+		'easy-pop-editor',
 		plugins_url( 'build/index.css', __FILE__ ),
 		array( 'wp-edit-post' ),
 		'0.1.0'
