@@ -203,6 +203,7 @@ const ModalSettings = () => {
 		modal_referrer_filter: referrerFilter = '',
 		modal_page_targeting: pageTargeting = 'entire_site',
 		modal_target_posts_pages: targetPostsPages = '',
+		modal_exclude_posts_pages: excludePostsPages = '',
 		modal_size: size = 'default',
 		modal_position: position = 'center',
 		modal_animation: animation = 'fade',
@@ -452,6 +453,17 @@ const ModalSettings = () => {
 							</p>
 						</div>
 					) }
+
+					<div style={ { marginTop: '20px', borderTop: '1px solid #ddd', paddingTop: '20px' } }>
+						<h4 style={ { marginTop: 0 } }>{ __( 'Exclude Posts/Pages', 'easy-pop' ) }</h4>
+						<PostPageSelector
+							value={ excludePostsPages }
+							onChange={ ( value ) => updateMeta( 'modal_exclude_posts_pages', value ) }
+						/>
+						<p style={ { fontSize: '12px', color: '#646970', marginTop: '10px' } }>
+							{ __( 'Exclude specific posts or pages from showing this popup, even if they match the targeting rules above.', 'easy-pop' ) }
+						</p>
+					</div>
 				</PanelBody>
 			</PluginDocumentSettingPanel>
 

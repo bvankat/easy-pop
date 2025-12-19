@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Easy Pop - Perfect Popups for Wordpress
  * Description:       Create beautiful modals and popups using the WordPress block editor with powerful targeting and display options.
- * Version:           0.4.1
+ * Version:           0.5.0
  * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            Hanscom Park Studio
@@ -151,6 +151,7 @@ function modal_builder_render_settings_page() {
 			'modal_referrer_filter',
 			'modal_page_targeting',
 			'modal_target_posts_pages',
+			'modal_exclude_posts_pages',
 			'modal_position',
 			'modal_animation',
 			'modal_overlay_opacity',
@@ -487,6 +488,13 @@ function modal_builder_register_meta() {
 		'default'      => $defaults['modal_target_posts_pages'],
 	) );
 
+	register_post_meta( 'modal', 'modal_exclude_posts_pages', array(
+		'type'         => 'string',
+		'single'       => true,
+		'show_in_rest' => true,
+		'default'      => $defaults['modal_exclude_posts_pages'],
+	) );
+
 	// Display options
 	register_post_meta( 'modal', 'modal_size', array(
 		'type'         => 'string',
@@ -598,6 +606,7 @@ function modal_builder_enqueue_frontend_assets() {
 			'referrerFilter'          => get_post_meta( $modal->ID, 'modal_referrer_filter', true ),
 			'pageTargeting'           => get_post_meta( $modal->ID, 'modal_page_targeting', true ) ?: 'entire_site',
 			'targetPostsPages'        => get_post_meta( $modal->ID, 'modal_target_posts_pages', true ) ?: '',
+			'excludePostsPages'       => get_post_meta( $modal->ID, 'modal_exclude_posts_pages', true ) ?: '',
 			'size'                    => get_post_meta( $modal->ID, 'modal_size', true ) ?: 'default',
 			'position'                => get_post_meta( $modal->ID, 'modal_position', true ) ?: 'center',
 			'animation'               => get_post_meta( $modal->ID, 'modal_animation', true ) ?: 'fade',

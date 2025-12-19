@@ -161,7 +161,15 @@
 	 * Check if modal should show based on all rules
 	 */
 	function shouldShowModal( modal ) {
-		// Check page/post targeting rules first
+		// Check exclusion list first (takes priority over all other rules)
+		if ( modal.excludePostsPages && pageContext.currentPostId > 0 ) {
+			const excludeIds = modal.excludePostsPages.split( ',' ).map( id => parseInt( id.trim() ) ).filter( id => id > 0 );
+			if ( excludeIds.includes( pageContext.currentPostId ) ) {
+				return false;
+			}
+		}
+
+		// Check page/post targeting rules
 		const targeting = modal.pageTargeting || 'entire_site';
 
 		switch ( targeting ) {
