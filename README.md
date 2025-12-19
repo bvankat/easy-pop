@@ -180,6 +180,11 @@ No! The plugin is optimized for performance with minimal JavaScript (under 3KB) 
 
 ## Changelog
 
+### Version 0.5.1
+* Fixes exclusion save bug
+* Adds default options for exclusions - Homepage only, Pages only, Posts only, Selected pages/posts
+
+
 ### Version 0.5.0
 * Adds exclusion option for better page/post targeting
 
