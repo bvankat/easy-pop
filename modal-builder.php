@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Easy Pop - Perfect Popups for Wordpress
  * Description:       Create beautiful modals and popups using the WordPress block editor with powerful targeting and display options.
- * Version:           0.5.0
+ * Version:           0.5.1
  * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            Hanscom Park Studio
