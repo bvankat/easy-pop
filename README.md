@@ -180,6 +180,14 @@ No! The plugin is optimized for performance with minimal JavaScript (under 3KB) 
 
 ## Changelog
 
+### Version 0.5.0
+* Adds exclusion option for better page/post targeting
+
+### Version 0.4.1
+* Adds full-width option
+* Removes background styling on modal container
+* Updates most code references from 'modal-builder' to 'easy-pop'
+
 ### Version 0.3.0
 * Adds post/page targeting controls
 
