@@ -203,6 +203,7 @@ const ModalSettings = () => {
 		modal_referrer_filter: referrerFilter = '',
 		modal_page_targeting: pageTargeting = 'entire_site',
 		modal_target_posts_pages: targetPostsPages = '',
+		modal_exclude_targeting: excludeTargeting = 'none',
 		modal_exclude_posts_pages: excludePostsPages = '',
 		modal_size: size = 'default',
 		modal_position: position = 'center',
@@ -455,14 +456,31 @@ const ModalSettings = () => {
 					) }
 
 					<div style={ { marginTop: '20px', borderTop: '1px solid #ddd', paddingTop: '20px' } }>
-						<h4 style={ { marginTop: 0 } }>{ __( 'Exclude Posts/Pages', 'easy-pop' ) }</h4>
-						<PostPageSelector
-							value={ excludePostsPages }
-							onChange={ ( value ) => updateMeta( 'modal_exclude_posts_pages', value ) }
+						<SelectControl
+							label={ __( 'Exclusions', 'easy-pop' ) }
+							value={ excludeTargeting }
+							options={ [
+								{ label: __( 'None', 'easy-pop' ), value: 'none' },
+								{ label: __( 'Homepage Only', 'easy-pop' ), value: 'homepage_only' },
+								{ label: __( 'Posts Only', 'easy-pop' ), value: 'posts_only' },
+								{ label: __( 'Pages Only', 'easy-pop' ), value: 'pages_only' },
+								{ label: __( 'Selected Posts/Pages', 'easy-pop' ), value: 'selected_posts_pages' },
+							] }
+							onChange={ ( value ) => updateMeta( 'modal_exclude_targeting', value ) }
+							help={ __( 'Exclude specific areas from showing this popup', 'easy-pop' ) }
 						/>
-						<p style={ { fontSize: '12px', color: '#646970', marginTop: '10px' } }>
-							{ __( 'Exclude specific posts or pages from showing this popup, even if they match the targeting rules above.', 'easy-pop' ) }
-						</p>
+
+						{ excludeTargeting === 'selected_posts_pages' && (
+							<div style={ { marginTop: '20px' } }>
+								<PostPageSelector
+									value={ excludePostsPages }
+									onChange={ ( value ) => updateMeta( 'modal_exclude_posts_pages', value ) }
+								/>
+								<p style={ { fontSize: '12px', color: '#646970', marginTop: '10px' } }>
+									{ __( 'Select specific posts or pages to exclude from this popup.', 'easy-pop' ) }
+								</p>
+							</div>
+						) }
 					</div>
 				</PanelBody>
 			</PluginDocumentSettingPanel>

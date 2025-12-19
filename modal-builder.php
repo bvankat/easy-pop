@@ -110,6 +110,8 @@ function modal_builder_get_defaults() {
 		'modal_referrer_filter' => '',
 		'modal_page_targeting' => 'entire_site',
 		'modal_target_posts_pages' => '',
+		'modal_exclude_targeting' => 'none',
+		'modal_exclude_posts_pages' => '',
 		'modal_position' => 'center',
 		'modal_animation' => 'fade',
 		'modal_overlay_opacity' => 75,
@@ -151,6 +153,7 @@ function modal_builder_render_settings_page() {
 			'modal_referrer_filter',
 			'modal_page_targeting',
 			'modal_target_posts_pages',
+			'modal_exclude_targeting',
 			'modal_exclude_posts_pages',
 			'modal_position',
 			'modal_animation',
@@ -488,6 +491,13 @@ function modal_builder_register_meta() {
 		'default'      => $defaults['modal_target_posts_pages'],
 	) );
 
+	register_post_meta( 'modal', 'modal_exclude_targeting', array(
+		'type'         => 'string',
+		'single'       => true,
+		'show_in_rest' => true,
+		'default'      => $defaults['modal_exclude_targeting'],
+	) );
+
 	register_post_meta( 'modal', 'modal_exclude_posts_pages', array(
 		'type'         => 'string',
 		'single'       => true,
@@ -606,6 +616,7 @@ function modal_builder_enqueue_frontend_assets() {
 			'referrerFilter'          => get_post_meta( $modal->ID, 'modal_referrer_filter', true ),
 			'pageTargeting'           => get_post_meta( $modal->ID, 'modal_page_targeting', true ) ?: 'entire_site',
 			'targetPostsPages'        => get_post_meta( $modal->ID, 'modal_target_posts_pages', true ) ?: '',
+			'excludeTargeting'        => get_post_meta( $modal->ID, 'modal_exclude_targeting', true ) ?: 'none',
 			'excludePostsPages'       => get_post_meta( $modal->ID, 'modal_exclude_posts_pages', true ) ?: '',
 			'size'                    => get_post_meta( $modal->ID, 'modal_size', true ) ?: 'default',
 			'position'                => get_post_meta( $modal->ID, 'modal_position', true ) ?: 'center',

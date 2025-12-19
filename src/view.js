@@ -161,12 +161,41 @@
 	 * Check if modal should show based on all rules
 	 */
 	function shouldShowModal( modal ) {
-		// Check exclusion list first (takes priority over all other rules)
-		if ( modal.excludePostsPages && pageContext.currentPostId > 0 ) {
-			const excludeIds = modal.excludePostsPages.split( ',' ).map( id => parseInt( id.trim() ) ).filter( id => id > 0 );
-			if ( excludeIds.includes( pageContext.currentPostId ) ) {
-				return false;
-			}
+		// Check exclusion rules first (takes priority over all other rules)
+		const excludeTargeting = modal.excludeTargeting || 'none';
+
+		switch ( excludeTargeting ) {
+			case 'homepage_only':
+				if ( pageContext.isHomepage ) {
+					return false;
+				}
+				break;
+
+			case 'posts_only':
+				if ( pageContext.isPost ) {
+					return false;
+				}
+				break;
+
+			case 'pages_only':
+				if ( pageContext.isPage ) {
+					return false;
+				}
+				break;
+
+			case 'selected_posts_pages':
+				if ( modal.excludePostsPages && pageContext.currentPostId > 0 ) {
+					const excludeIds = modal.excludePostsPages.split( ',' ).map( id => parseInt( id.trim() ) ).filter( id => id > 0 );
+					if ( excludeIds.includes( pageContext.currentPostId ) ) {
+						return false;
+					}
+				}
+				break;
+
+			case 'none':
+			default:
+				// No exclusions
+				break;
 		}
 
 		// Check page/post targeting rules
